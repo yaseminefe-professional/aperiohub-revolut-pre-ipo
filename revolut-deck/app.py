@@ -863,6 +863,7 @@ def page_ws2():
     )
     tracks = cached_scenario_tracks()
     tracks_display = tracks.copy()
+    tracks_display["meets_target"] = tracks_display["irr_model_hold"].apply(lambda x: "YES" if x >= 0.20 else "NO")
     tracks_display["irr_model_hold"] = (tracks_display["irr_model_hold"] * 100).round(1).astype(str) + "%"
     st.dataframe(
         tracks_display[["track", "scenario", "exit_value_bln", "moic", "irr_model_hold", "meets_target"]].rename(
